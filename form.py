@@ -108,7 +108,7 @@ class Ui_MainWindow(object):
         self.size = QtWidgets.QSpinBox(self.centralwidget)
         self.size.setGeometry(QtCore.QRect(334, 207, 81, 24))
         self.size.setObjectName("size")
-        self.size.setProperty("value", 5)
+        self.size.setProperty("value", 10000)
         self.size.setMaximum(1000000000)
         self.label_7 = QtWidgets.QLabel(self.centralwidget)
         self.label_7.setGeometry(QtCore.QRect(500, 210, 41, 16))
