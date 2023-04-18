@@ -26,7 +26,6 @@ class ExternalSorts(QtWidgets.QMainWindow):
         appends = 0
 
         start_time = time.time()
-        k = 1 # текущий размер серии
         while len(array_for_sort) > 1:
             decay_b = [] #  серии б
             decay_c = [] #  серии с
@@ -45,7 +44,6 @@ class ExternalSorts(QtWidgets.QMainWindow):
                 iteration += 1
             
             #   слияние
-            k *= 2
             for i in range(min(len(decay_b), len(decay_c))):
                 temp = []
                 while len(decay_b[i]) > 0 and len(decay_c[i]) > 0:
@@ -62,13 +60,14 @@ class ExternalSorts(QtWidgets.QMainWindow):
                 
                 if len(decay_b[i]) > 0:
                     temp[len(temp):] = decay_b[i][:] #  добавление оставшихся из б
-                    appends += 1
+                    appends += len(decay_b[i])
                     decay_b[i].clear()
                 else:
                     temp[len(temp):] = decay_c[i][:] #  добавление оставшихся из с
-                    appends += 1
+                    appends += len(decay_c[i])
                     decay_c[i].clear()
                 array_for_sort.append(temp) # добавляем серию в массив
+                appends += 1
             
             if len(decay_b[-1]) > 0: #  проверяем осталось ли что-то в доп массивах
                 array_for_sort.append(decay_b[-1])
@@ -94,7 +93,7 @@ class ExternalSorts(QtWidgets.QMainWindow):
 
         if self.ui.simple2f.isChecked():
             a = self.simple_two_phase_sort(A)
-            self.ui.tableWidget.setItem(0, 5, QtWidgets.QTableWidgetItem(str(self.isSorted(a))))
+            self.ui.tableWidget.setItem(0, 5, QtWidgets.QTableWidgetItem(str(self.isSorted(a[0]))))
 
     def isSorted(self, array):
         for i in range(len(array) - 1):
